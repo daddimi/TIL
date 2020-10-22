@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/milayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4D9F8"
+    android:backgroundTint="#EAE2FA"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/inputdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:text="20200505" />
+
+    <Button
+        android:id="@+id/MIbt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#673AB7"
+        android:backgroundTint="#673AB7"
+        android:onClick="mick"
+        android:text="Movie Info"
+        android:textColor="#FFFFFF" />
+
+    <ListView
+        android:id="@+id/milist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E6DAFB" />
+</LinearLayout>

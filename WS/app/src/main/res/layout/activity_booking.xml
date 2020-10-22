@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFBE8"
+    android:orientation="vertical"
+    tools:context=".Booking">
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FDFBE8">
+
+        <TextView
+            android:id="@+id/txbooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is Booking Page." />
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="12"
+        android:background="#9A945D"
+        android:elevation="8dp"
+        app:itemBackground="@null"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconTint="@color/design_default_color_error"
+        app:itemTextColor="#FFFFFF"
+        app:labelVisibilityMode="auto"
+        app:menu="@menu/bottom_menu" />
+
+</LinearLayout>
