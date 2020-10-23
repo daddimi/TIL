@@ -4,9 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F3FB"
+    android:layout_gravity="center"
+    android:background="#F4F0FB"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtitle"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:background="#4E3B70"
+        android:gravity="center"
+        android:text="Movie Information"
+        android:textColor="#F1E9FF"
+        android:textColorHighlight="#F0E9FB"
+        android:textColorHint="#F0E7FF"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txblank"
+        android:layout_width="match_parent"
+        android:layout_height="37dp" />
+
+    <TextView
+        android:id="@+id/txhead"
+        android:layout_width="384dp"
+        android:layout_height="67dp"
+        android:layout_gravity="bottom|center"
+        android:text="박스오피스 영화 정보와 예매 서비스를 제공하는 Movie Information 입니다.  "
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/txid"
@@ -14,7 +43,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="id01" />
+        android:text="movie01" />
 
     <EditText
         android:id="@+id/txpwd"
@@ -22,7 +51,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="pwd01" />
+        android:text="information01" />
 
     <Button
         android:id="@+id/loginbt"
@@ -30,6 +59,18 @@
         android:layout_height="wrap_content"
         android:background="#673AB7"
         android:onClick="loginck"
-        android:text="Log In"
-        android:textColor="#FFFFFF" />
+        android:text="로그인"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txbody"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="! 원활한 애플리케이션 사용을 위해 로그인이 필요합니다 !"
+        android:textColor="#000000"
+        android:textSize="14sp" />
 </LinearLayout>

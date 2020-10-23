@@ -5,7 +5,7 @@
     android:id="@+id/blayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFBE8"
+    android:background="#F4F0FB"
     android:orientation="vertical"
     tools:context=".Booking">
 
@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#FDFBE8">
+        android:background="#F4F0FB">
 
         <TextView
             android:id="@+id/txbooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is Booking Page." />
+            android:text="예매 페이지 입니다." />
 
     </FrameLayout>
 
@@ -29,11 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="12"
-        android:background="#9A945D"
+        android:background="#673AB7"
         android:elevation="8dp"
         app:itemBackground="@null"
         app:itemHorizontalTranslationEnabled="true"
-        app:itemIconTint="@color/design_default_color_error"
+        app:itemIconTint="#9FE6D9FD"
         app:itemTextColor="#FFFFFF"
         app:labelVisibilityMode="auto"
         app:menu="@menu/bottom_menu" />

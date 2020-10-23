@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class SecondActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             progressDialog.dismiss();
+            Log.d("Test",s);
 
             JSONArray ja = null;
             JSONObject jo = null;
@@ -112,7 +114,8 @@ public class SecondActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SecondActivity.this);
                     builder.setTitle("상영 정보");
-                    builder.setMessage("개봉일 :  "+list.get(position).getOpenDt()+"  "+"예매하시겠습니까?");
+                    builder.setMessage(list.get(position).getMovieNm()+
+                            "\n개봉일 :  "+list.get(position).getOpenDt()+"\n예매하시겠습니까?");
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -165,6 +168,8 @@ public class SecondActivity extends AppCompatActivity {
             txrank.setText("박스오피스 순위 :  "+list.get(position).getRank()+" 위");
             txname.setText("영화 제목 :  "+list.get(position).getMovieNm()+" ");
             txaudi.setText("누적 관객수 :  "+list.get(position).getAudiAcc()+" 명");
+
+            //ImageView movieimg = miView.findViewById(R.id.movieimg);
 
             return miView;
         }

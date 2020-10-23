@@ -5,16 +5,19 @@
     <item
         android:id="@+id/bottom1"
         android:enabled="true"
-        android:title="지도"
+        android:icon="@drawable/map2"
+        android:title="영화관 찾기"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/bottom2"
         android:enabled="true"
-        android:title="Item"
+        android:icon="@drawable/pageicon"
+        android:title="홈페이지"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/bottom3"
         android:enabled="true"
-        android:title="Item"
+        android:icon="@drawable/coupon"
+        android:title="이벤트"
         app:showAsAction="ifRoom|withText" />
 </menu>

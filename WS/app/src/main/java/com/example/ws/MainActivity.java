@@ -1,7 +1,9 @@
 package com.example.ws;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -23,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         txid = findViewById(R.id.txid);
         txpwd = findViewById(R.id.txpwd);
+        String [] permission = {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.INTERNET
+        };
+        ActivityCompat.requestPermissions(this,
+                permission, 101);
     }
 
     public void loginck (View v) {
@@ -68,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
             if(result.equals("1")) {
                 Intent intent = new Intent(MainActivity.this,SecondActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "로그인되었습니다.", Toast.LENGTH_SHORT).show();
 
             } else {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("Login Failed");
-                dialog.setMessage("Check your id or pwd and retry.");
+                dialog.setTitle("로그인 실패");
+                dialog.setMessage("아이디나 비밀번호가 일치하지 않습니다.");
                 dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
