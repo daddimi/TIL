@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tx = findViewById(R.id.tx);
-        FirebaseMessaging.getInstance().subscribeToTopic("car").addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseMessaging.getInstance().subscribeToTopic("movie").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                String msg = "FCM Complete ...";
+                String msg = "쿠폰이 전송되었습니다.";
                 if(!task.isSuccessful()) {
-                    msg = "FCM Fail";
+                    msg = "Fail";
                 }
                 Log.d("[TAG]:",msg);
             }
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 String control = intent.getStringExtra("control");
                 String data = intent.getStringExtra("data");
                 tx.setText(control+" "+data);
-                Toast.makeText(MainActivity.this, title+" "+control+" "+data, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "쿠폰전송", Toast.LENGTH_LONG).show();
             }
         }
     };
