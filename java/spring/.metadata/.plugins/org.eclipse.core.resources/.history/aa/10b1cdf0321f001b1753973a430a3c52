@@ -1,0 +1,256 @@
+package com.can;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import com.chat.Client;
+
+import gnu.io.CommPort;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+
+public class SendAndReceiveSerial implements SerialPortEventListener {
+	private BufferedInputStream bin;
+	private InputStream in;
+	private OutputStream out;
+	private SerialPort serialPort;
+	private CommPortIdentifier portIdentifier;
+	private CommPort commPort;
+	private String result;
+	private String rawCanID, rawTotal;
+	// private boolean start = false;
+
+	public SendAndReceiveSerial(String portName, boolean mode) {
+		
+		try {
+			if (mode == true) {
+				portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
+				System.out.printf("Port Connect : %s\n", portName);
+				connectSerial();
+				// Serial Initialization ....
+				(new Thread(new SerialWriter())).start();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void connectSerial() throws Exception {
+
+		if (portIdentifier.isCurrentlyOwned()) {
+			System.out.println("Error: Port is currently in use");
+		} else {
+			commPort = portIdentifier.open(this.getClass().getName(), 5000);
+			if (commPort instanceof SerialPort) {
+				serialPort = (SerialPort) commPort;
+				serialPort.addEventListener(this);
+				serialPort.notifyOnDataAvailable(true);
+				serialPort.setSerialPortParams(921600, // 占쏙옙탉撻占�
+						SerialPort.DATABITS_8, // 占쏙옙占쏙옙占쏙옙 占쏙옙트
+						SerialPort.STOPBITS_1, // stop 占쏙옙트
+						SerialPort.PARITY_NONE); // 占싻몌옙티
+				in = serialPort.getInputStream();
+				bin = new BufferedInputStream(in);
+				out = serialPort.getOutputStream();
+			} else {
+				System.out.println("Error: Only serial ports are handled by this example.");
+			}
+		}
+	}
+
+	public void sendSerial(String rawTotal, String rawCanID) {
+		this.rawTotal = rawTotal;
+		this.rawCanID = rawCanID;
+		// System.out.println("send: " + rawTotal);
+		try {
+			// Thread.sleep(50);
+			Thread.sleep(30);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Thread sendTread = 
+				new Thread(new SerialWriter(rawTotal));
+		sendTread.start();
+	}
+
+	private class SerialWriter implements Runnable {
+		String data;
+
+		public SerialWriter() {
+			// 理쒖큹�뿉 �븳踰� �뤃二쇱뼱�빞 �븳�떎. Can �봽濡쒗넗肄쒖뿉 李몄뿬�븯寃좊떎�뒗 �쑜. Can 硫붿떆吏� �떆�옉�� :  �걹�굹�뒗 遺�遺꾩� \r  濡�  �젙�빐�졇�엳�떎.
+			this.data = ":G11A9\r";
+		}
+
+		public SerialWriter(String serialData) {
+			// CheckSum Data �깮�꽦
+			this.data = sendDataFormat(serialData);
+			// check sum
+			// : serialData checksum \r
+		}
+
+		public String sendDataFormat(String serialData) {
+			serialData = serialData.toUpperCase();
+			char c[] = serialData.toCharArray();
+			int cdata = 0;
+			for (char cc : c) {
+				cdata += cc;
+			}
+			// check sum = 媛꾨떒�븳 �븫�샇�솕
+			cdata = (cdata & 0xFF);
+
+			String returnData = ":";
+			returnData += serialData + Integer.toHexString(cdata).toUpperCase();
+			returnData += "\r";
+			return returnData;
+		}
+
+		public void run() {
+			try {
+
+				byte[] inputData = data.getBytes();
+
+				out.write(inputData);
+				send(data+"");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	
+
+	
+	// Asynchronized Receive Data
+	// --------------------------------------------------------
+
+	public void serialEvent(SerialPortEvent event) {
+		switch (event.getEventType()) {
+		case SerialPortEvent.BI:
+		case SerialPortEvent.OE:
+		case SerialPortEvent.FE:
+		case SerialPortEvent.PE:
+		case SerialPortEvent.CD:
+		case SerialPortEvent.CTS:
+		case SerialPortEvent.DSR:
+		case SerialPortEvent.RI:
+		case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
+			break;
+		case SerialPortEvent.DATA_AVAILABLE:
+			byte[] readBuffer = new byte[128];
+
+			try {
+
+				while (bin.available() > 0) {
+					int numBytes = bin.read(readBuffer);
+				}
+
+				String ss = new String(readBuffer);
+				System.out.println("Receive Low Data:" + ss + "||");
+				send(ss);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+	}
+
+	
+
+	
+
+	public void close() throws IOException {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if (in != null) {
+			in.close();
+		}
+		if (out != null) {
+			out.close();
+		}
+		if (commPort != null) {
+			commPort.close();
+		}
+
+	}
+	
+	public static void send(String candata) {
+
+		HttpSender sender = null;
+
+			String urlstr = "http://192.168.0.15/tcpip/can.mc";
+			URL url = null;
+			try {
+				String data = candata;
+				url = new URL(urlstr+"?candata="+data);
+				sender = new HttpSender(candata, url);
+				new Thread(sender).start();
+			} catch (Exception e) {
+//				break;
+			}
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		
+	};
+	
+	static class HttpSender implements Runnable{
+		URL url = null;
+		String data;
+		
+		public HttpSender() {
+			
+		}
+		public HttpSender(String data, URL url) {
+			this.data = data;
+			this.url = url;
+		}
+
+		@Override
+		public void run() {
+			HttpURLConnection con = null;
+			try {
+				con = (HttpURLConnection) url.openConnection();
+				con.setReadTimeout(5000);
+				con.setRequestMethod("POST");
+				con.getInputStream();
+				System.out.println("data:" + data);
+			} catch (Exception e) {
+
+			} finally {
+				con.disconnect();
+			}
+		
+		}
+		
+	}
+
+	public static void main(String args[]) throws IOException {
+		Client client = new Client("192.168.0.15",5555,"[can]");
+		try {
+			client.connect();
+			
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+//		SendAndReceiveSerial ss = new SendAndReceiveSerial("COM6", true);
+//		ss.sendSerial("W2810003B010000000000005011", "10003B01");
+		//ss.close();
+		
+
+	}
+
+}

@@ -1,0 +1,63 @@
+package com.chat;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+
+	int port;
+	String address;
+	String id;
+	Socket socket;
+	
+	public Client () {}
+	
+	public Client(String address, int port, String id) {
+		this.address = address;
+		this.port = port;
+		this.id = id;
+	}
+	
+	public void connect() throws InterruptedException {
+		try {
+			socket = new Socket(address, port);
+		} catch (Exception e) {
+			while(true) {
+				Thread.sleep(2000);
+				System.out.println("Retry..");
+				try {
+					socket = new Socket(address, port);
+					break;
+				} catch (Exception e1) {
+					System.out.println("Retry...");
+				} 
+			}
+		} 
+		
+		System.out.println("Connected Server: "+address);
+	}
+	
+	public void sendMsg() {
+		
+	}
+	
+	class Sender extends Thread {
+		
+	}
+	
+	class Receiver extends Thread {
+		
+	}
+	
+	public static void main(String[] args) {
+		Client client = new Client("192.168.0.36",5555,"[jr]");
+		try {
+			client.connect();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

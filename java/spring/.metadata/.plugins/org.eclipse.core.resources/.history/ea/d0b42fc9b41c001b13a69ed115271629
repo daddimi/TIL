@@ -1,0 +1,27 @@
+package com.tcpip;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class MainController {
+	
+	@RequestMapping("/main.mc")
+	public ModelAndView main() {	//data와 model을 세팅하면 글로 보낸다.
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main");
+		return mv;
+	}
+	
+	@RequestMapping("/iot.mc")
+	public void iot() {
+		System.out.println("Iot Send Start");
+	}
+	
+	@RequestMapping("/phone.mc")
+	public void phone() {
+		System.out.println("Phone Send Start");
+	}
+	
+}

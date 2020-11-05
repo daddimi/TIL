@@ -1,0 +1,11 @@
+INDEX VERSION 1.131
+C:\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2055468900.index
+\d04\src
+C:\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1534750095.index
+\d04\src
+C:\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1920550785.index
+\d04\src
+C:\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\700766606.index
+\tcpip\src
+C:\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2798520534.index
+\android\src
