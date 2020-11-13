@@ -1,0 +1,11 @@
+
+
+VMware Player
+
+맨 오른쪽 밑에 change setting -> Type - Bridged에서  VMnet Information 에서 NAT를 Bridged 로 세팅 밑에 Automatic 말고 Realtek PCI 어쩌구로 세팅 -> OK
+버추얼 머신 세팅에서 network adapter 도 bridged 로 바꿔주기
+
+root로 들어가서 터미널
+vi /etc/sysconfig/network-scripts/ifcfg-ens33
+문서 바꾸기
+

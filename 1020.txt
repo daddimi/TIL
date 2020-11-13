@@ -1,0 +1,2 @@
+keytool -list -v -keystore "C:\Users\i\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+//implementation filetree(dir: "libs", include:["*.jar"])

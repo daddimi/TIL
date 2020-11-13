@@ -1,0 +1,19 @@
+Android Studio
+
+1014
+
+widget, layout, Event
+
+Android 4 componet
+-Activity : Base, UI
+-Service : Background Process
+-Broadcast Receiver : Broadcast 내용을 받음
+-Content Provider : App Data 공유
+
+
+
+1016
+1. Thread
+---------------------
+2. Handler
+3. AsyncTask

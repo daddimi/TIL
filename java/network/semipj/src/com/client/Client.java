@@ -1,4 +1,4 @@
-package com.chat;
+package com.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -77,6 +77,7 @@ public class Client {
 //				ips.add("/192.168.0.24");
 //				ips.add("/192.168.0.92");
 //				ips.add("/192.168.0.15");
+//				msg = new Msg(ips,id,ms);
 				msg = new Msg(null,id,ms);
 			}
 			
